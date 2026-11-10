@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary SEO Meta Tags -->
+    <title>Funngro | Teen Freelancing & Next-Gen Talent Platform</title>
+    <meta name="description" content="Funngro connects smart teenagers with real company projects. Earn money, build your portfolio, or hire talented youth for cost-effective business solutions.">
+    <meta name="keywords" content="teen freelancing, earn money as a teenager, hire teen talent, student earning platform, youth gig economy, smart projects for teens">
+    <meta name="author" content="Funngro Web Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.funngro.com/">
+    <meta property="og:title" content="Funngro | Turn Skills into Earning Opportunities">
+    <meta property="og:description" content="Empowering teens to work on real-world company projects. Hire smart young talent today.">
+    <meta property="og:image" content="https://placehold.co/1200x630/4f46e5/ffffff?text=Funngro+Teen+Freelancing">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Funngro | Teen Freelancing & Next-Gen Talent">
+    <meta property="twitter:description" content="Connect with top teenage freelancers for marketing, coding, content, and design.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                            accent: '#10b981', // emerald green for earnings/finance
+                            accentHover: '#059669'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" onclick="switchPage('teen')" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                 <img src="funngro.png" alt="" style="border-radius: 40%;">   
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-black tracking-tight text-white group-hover:text-brand-500 transition-colors">funngro<span class="text-emerald-400">.</span></span>
+                    <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Earn & Learn</span>
+                </div>
+            </a>
+
+            <!-- Page Switcher Toggle (Teens vs Companies) -->
+            <nav class="hidden md:flex items-center bg-slate-800/80 p-1.5 rounded-full border border-slate-700/60 shadow-inner">
+                <button id="nav-btn-teen" onclick="switchPage('teen')" class="px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md bg-brand-600 text-white">
+                    <i class="fa-solid fa-graduation-cap mr-2"></i>For Teens
+                </button>
+                <button id="nav-btn-company" onclick="switchPage('company')" class="px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-briefcase mr-2"></i>For Companies
+                </button>
+            </nav>
+
+            <!-- Action Buttons & Drawer Toggle -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleAuditModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                    <i class="fa-solid fa-chart-line text-brand-500"></i> SEO Audit Info
+                </button>
+                
+                <a href="#projects-section" id="header-cta" class="px-5 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white shadow-lg shadow-emerald-500/20 transition hover:scale-105">
+                    Start Earning
+                </a>
+
+                <!-- Mobile Navigation Menu Toggle -->
+                <button id="mobile-menu-btn" class="md:hidden p-2.5 text-slate-400 hover:text-white rounded-lg bg-slate-800">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Switcher Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 border-b border-slate-700 px-4 py-3 space-y-2">
+            <div class="flex rounded-lg bg-slate-900 p-1 border border-slate-700">
+                <button onclick="switchPage('teen'); toggleMobileMenu()" id="mob-btn-teen" class="flex-1 py-2 text-center text-xs font-bold rounded-md bg-brand-600 text-white">
+                    For Teens
+                </button>
+                <button onclick="switchPage('company'); toggleMobileMenu()" id="mob-btn-company" class="flex-1 py-2 text-center text-xs font-bold rounded-md text-slate-400">
+                    For Companies
+                </button>
+            </div>
+            <button onclick="toggleAuditModal(); toggleMobileMenu()" class="w-full text-left px-3 py-2 text-xs text-slate-300 flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-brand-500"></i> View SEO Audit Report Checklist
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Containers -->
+    <main class="flex-grow">
+        
+        <!-- PAGE 1: TEEN PAGE (EARN & LEARN) -->
+        <div id="page-teen" class="transition-opacity duration-300">
+            <!-- Hero Section -->
+            <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+                <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute top-1/2 -right-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid lg:grid-cols-12 gap-12 items-center">
+                        <!-- Left Hero Content -->
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-400 text-xs font-semibold uppercase tracking-wider">
+                                <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                                Smart Freelancing for Ages 13-19
+                            </div>
+                            
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                                Turn Your Skills into <br class="hidden sm:inline">
+                                <span class="bg-gradient-to-r from-brand-400 via-emerald-400 to-teal-300 bg-clip-text text-transparent">Earning Opportunities</span>
+                            </h1>
+
+                            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                                Join thousands of teens completing real-world projects for top companies. Gain financial independence, build a professional portfolio, and learn real business skills early.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                                <a href="#projects-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white font-bold text-base shadow-lg shadow-brand-500/30 hover:scale-105 transition-all text-center">
+                                    Explore Active Projects <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                                </a>
+                                <button onclick="switchPage('company')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-base transition-all text-center">
+                                    Hire Teen Talent <i class="fa-solid fa-briefcase ml-2 text-xs"></i>
+                                </button>
+                            </div>
+
+                            <!-- Trust Badges -->
+                            <div class="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+                                <div>
+                                    <div class="text-2xl font-bold text-white">50,000+</div>
+                                    <div class="text-xs text-slate-400">Active Teen Workers</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-emerald-400">$250,000+</div>
+                                    <div class="text-xs text-slate-400">Paid to Teens</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-white">1,200+</div>
+                                    <div class="text-xs text-slate-400">Partner Companies</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Hero Visual Card -->
+                        <div class="lg:col-span-5">
+                            <div class="relative bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-2xl backdrop-blur-sm">
+                                <div class="flex items-center justify-between border-b border-slate-700/80 pb-4 mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-emerald-400 font-bold">
+                                            <i class="fa-solid fa-wallet"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-slate-400">Teen Balance</div>
+                                            <div class="text-lg font-bold text-white">$420.00 USD</div>
+                                        </div>
+                                    </div>
+                                    <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 text-xs rounded-full font-medium border border-emerald-500/20">Verified Earnings</span>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Recent Completed Gigs</div>
+                                    
+                                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                                                <i class="fa-solid fa-code text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs font-semibold text-white">Landing Page CSS Fixes</div>
+                                                <div class="text-[10px] text-slate-400">Tech Startup Inc.</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs font-bold text-emerald-400">+$65.00</span>
+                                    </div>
+
+                                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center">
+                                                <i class="fa-solid fa-hashtag text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs font-semibold text-white">Instagram Reel Content Creation</div>
+                                                <div class="text-[10px] text-slate-400">Fashion Brand</div>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs font-bold text-emerald-400">+$90.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Grid (H2 Section) -->
+            <section class="py-16 bg-slate-800/40 border-y border-slate-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">Why Smart Teens Choose Funngro</h2>
+                        <p class="mt-3 text-slate-400 text-sm sm:text-base">Everything you need to learn business workflows, showcase your skills, and earn income safely.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Feature 1 -->
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-brand-500/50 transition duration-300 group">
+                            <div class="w-14 h-14 rounded-xl bg-brand-600/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Real Company Projects</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Work directly with verified startups and enterprise companies on practical assignments like coding, social media, writing, and graphics.
+                            </p>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition duration-300 group">
+                            <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Skill Assessment & Certs</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Take short skill evaluation tests to showcase your capabilities to employers and unlock higher-paying project tiers.
+                            </p>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-teal-500/50 transition duration-300 group">
+                            <div class="w-14 h-14 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Safe & Timely Payouts</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Project funds are held in secure escrow. Once your deliverable is approved, funds transfer directly to your verified account.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Sample Projects / Gigs Section -->
+            <section id="projects-section" class="py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                        <div>
+                            <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">Live Marketplace</span>
+                            <h2 class="text-3xl font-extrabold text-white">Explore Open Teen Projects</h2>
+                        </div>
+
+                        <!-- Filter Chips -->
+                        <div class="flex flex-wrap gap-2" id="project-filters">
+                            <button onclick="filterProjects('all')" class="filter-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-600 text-white">All Projects</button>
+                            <button onclick="filterProjects('Web Dev')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Web Dev</button>
+                            <button onclick="filterProjects('Design')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Design</button>
+                            <button onclick="filterProjects('Content')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Content & Social</button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Project Cards Grid -->
+                    <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Javascript will populate this dynamically -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 2: COMPANY PAGE (HIRE YOUNG TALENT) -->
+        <div id="page-company" class="hidden transition-opacity duration-300">
+            <!-- Hero Section -->
+            <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+                <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid lg:grid-cols-12 gap-12 items-center">
+                        <!-- Left Hero Content -->
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                For Enterprise & Fast-Growing Startups
+                            </div>
+
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                                Scale Your Business with <br class="hidden sm:inline">
+                                <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-brand-400 bg-clip-text text-transparent">Next-Gen Teen Talent</span>
+                            </h1>
+
+                            <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                                Access an energetic, tech-native workforce for marketing, design, research, and web tasks. Save time, reduce costs, and empower the leaders of tomorrow.
+                            </p>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                                <a href="#calculator-section" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-base shadow-lg shadow-emerald-500/30 hover:scale-105 transition-all text-center">
+                                    Calculate Project Cost <i class="fa-solid fa-calculator ml-2 text-xs"></i>
+                                </a>
+                                <button onclick="switchPage('teen')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-base transition-all text-center">
+                                    I am a Teenager <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Card - Sample Company Dashboard Preview -->
+                        <div class="lg:col-span-5">
+                            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-2xl">
+                                <div class="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-rocket text-brand-500"></i> Active Company Dashboard
+                                    </h3>
+                                    <span class="text-[10px] bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded font-mono">Employer Mode</span>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-700/60">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xs font-semibold text-white">Social Media Campaign</span>
+                                            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded">3 Candidates Applied</span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 rounded-full h-2 mb-2">
+                                            <div class="bg-emerald-400 h-2 rounded-full" style="width: 75%"></div>
+                                        </div>
+                                        <div class="flex justify-between text-[11px] text-slate-400">
+                                            <span>Budget: $150</span>
+                                            <span>Est. Completion: 2 Days</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-700/60">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xs font-semibold text-white">App UI Testing & QA</span>
+                                            <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded">In Progress</span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 rounded-full h-2 mb-2">
+                                            <div class="bg-brand-500 h-2 rounded-full" style="width: 40%"></div>
+                                        </div>
+                                        <div class="flex justify-between text-[11px] text-slate-400">
+                                            <span>Budget: $80</span>
+                                            <span>Est. Completion: 1 Day</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Grid (H2 Section for Companies) -->
+            <section class="py-16 bg-slate-800/40 border-y border-slate-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">Built for Agile Companies</h2>
+                        <p class="mt-3 text-slate-400 text-sm sm:text-base">Outsource modular tasks quickly without traditional recruitment overhead.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Company Feature 1 -->
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-emerald-500/50 transition">
+                            <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl mb-6">
+                                <i class="fa-solid fa-piggy-bank"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Cost-Effective Solutions</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Get bite-sized marketing, research, and technical deliverables completed at startup-friendly rates while mentoring Gen-Z talent.
+                            </p>
+                        </div>
+
+                        <!-- Company Feature 2 -->
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-brand-500/50 transition">
+                            <div class="w-14 h-14 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 text-2xl mb-6">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Vetted Candidates</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Save screening time. Every teen candidate undergoes skill evaluations and identity verification before joining projects.
+                            </p>
+                        </div>
+
+                        <!-- Company Feature 3 -->
+                        <div class="bg-slate-900 p-8 rounded-2xl border border-slate-800 hover:border-teal-500/50 transition">
+                            <div class="w-14 h-14 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 text-2xl mb-6">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Flexible Project Management</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">
+                                Post projects within minutes, track deliverables in real-time, and release payment only when you are completely satisfied.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Cost Estimator for Companies -->
+            <section id="calculator-section" class="py-16">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-slate-800/90 border border-slate-700 rounded-3xl p-6 sm:p-10 shadow-2xl">
+                        <div class="text-center mb-8">
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Interactive Tool</span>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Estimate Your Project Cost</h2>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-2">See how cost-effective hiring teen talent can be for your team.</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Select Project Category</label>
+                                    <select id="calc-category" onchange="calculateCost()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500">
+                                        <option value="50">Social Media & Micro Content ($50 baseline)</option>
+                                        <option value="100">Web Development / HTML ($100 baseline)</option>
+                                        <option value="75">Graphic Design & Banners ($75 baseline)</option>
+                                        <option value="40">Market Research & Surveys ($40 baseline)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                                        <span>Number of Deliverables / Hours</span>
+                                        <span id="quantity-label" class="text-emerald-400 font-bold">2 Units</span>
+                                    </div>
+                                    <input type="range" id="calc-quantity" min="1" max="10" value="2" oninput="calculateCost()" class="w-full accent-emerald-500 bg-slate-900 rounded-lg cursor-pointer h-2">
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700/80 text-center space-y-4">
+                                <span class="text-xs text-slate-400 font-medium">Estimated Total Project Budget</span>
+                                <div id="total-cost" class="text-4xl font-extrabold text-emerald-400">$100</div>
+                                <p class="text-[11px] text-slate-500">Includes escrow protection, platform verification, and quality support.</p>
+                                <button onclick="triggerNotification('Project draft saved! Our team will reach out to verify details.')" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-sm shadow-md hover:scale-105 transition">
+                                    Post This Project Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Modal for SEO Audit Report (Task Requirement 2) -->
+    <div id="seo-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 relative">
+            <button onclick="toggleAuditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">Funngro SEO Audit Checklist</h3>
+                    <p class="text-xs text-slate-400">Integrated audit report summary for submission criteria</p>
+                </div>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+                <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-check-circle"></i> 1. On-Page & Semantic Architecture
+                    </h4>
+                    <p class="text-slate-400 text-xs">Included structured Title, Meta Descriptions, and OpenGraph tags. Used explicit H1 tag hierarchy on both Teen & Company landing pages.</p>
+                </div>
+
+                <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-check-circle"></i> 2. Keyword Targeting Strategy
+                    </h4>
+                    <p class="text-slate-400 text-xs">Targeted high-intent search terms including "teen freelancing", "earn money as a teenager", "hire teen talent", and "student earning platform".</p>
+                </div>
+
+                <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700">
+                    <h4 class="font-bold text-emerald-400 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-check-circle"></i> 3. Technical Performance & Mobile UX
+                    </h4>
+                    <p class="text-slate-400 text-xs">Single-page fluid responsive design using Tailwind CSS utility classes. Optimized mobile touch targets and rapid DOM rendering speed.</p>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="toggleAuditModal()" class="px-5 py-2 rounded-xl bg-brand-600 text-white font-semibold text-xs">
+                    Close Audit Summary
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Widget -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white border border-slate-700 px-5 py-3 rounded-xl shadow-2xl z-50 hidden flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-xs font-semibold">Action completed successfully!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Platform</h5>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#" onclick="switchPage('teen')" class="hover:text-white">For Teenagers</a></li>
+                        <li><a href="#" onclick="switchPage('company')" class="hover:text-white">For Companies</a></li>
+                        <li><a href="#projects-section" class="hover:text-white">Browse Gigs</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Resources</h5>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#" onclick="toggleAuditModal()" class="hover:text-white">SEO Audit Report</a></li>
+                        <li><a href="#" class="hover:text-white">Skill Certificates</a></li>
+                        <li><a href="#" class="hover:text-white">Safety & Escrow</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Connect</h5>
+                    <div class="flex space-x-3 text-slate-400">
+                        <a href="https://www.instagram.com/funngro/" target="_blank" class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center hover:text-pink-400 hover:bg-slate-700">
+                            <i class="fa-brands fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center hover:text-blue-400 hover:bg-slate-700">
+                            <i class="fa-brands fa-linkedin text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center hover:text-sky-400 hover:bg-slate-700">
+                            <i class="fa-brands fa-twitter text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Funngro Smart Web</h5>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">
+                        Designed to showcase website development capabilities, SEO optimization, and responsive design for Funngro project submission.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Funngro Platform. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-slate-400">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Sample Teen Projects Data
+        const projectsData = [
+            {
+                id: 1,
+                title: "React Component Styling Fix",
+                category: "Web Dev",
+                company: "TechNova Labs",
+                payout: "$50",
+                duration: "2 Days",
+                tags: ["HTML/CSS", "React"],
+                icon: "fa-code",
+                color: "text-blue-400",
+                bgColor: "bg-blue-500/10"
+            },
+            {
+                id: 2,
+                title: "Instagram Reel & Story Creation",
+                category: "Content",
+                company: "UrbanFit Apparel",
+                payout: "$75",
+                duration: "1 Day",
+                tags: ["Canva", "Video Editing"],
+                icon: "fa-hashtag",
+                color: "text-purple-400",
+                bgColor: "bg-purple-500/10"
+            },
+            {
+                id: 3,
+                title: "Logo & Brand Banner Design",
+                category: "Design",
+                company: "EcoGreen Energy",
+                payout: "$85",
+                duration: "3 Days",
+                tags: ["Figma", "Branding"],
+                icon: "fa-paintbrush",
+                color: "text-pink-400",
+                bgColor: "bg-pink-500/10"
+            },
+            {
+                id: 4,
+                title: "Gen-Z Market Trends Survey",
+                category: "Content",
+                company: "Insights Co.",
+                payout: "$40",
+                duration: "1 Day",
+                tags: ["Research", "Data Entry"],
+                icon: "fa-chart-pie",
+                color: "text-emerald-400",
+                bgColor: "bg-emerald-500/10"
+            },
+            {
+                id: 5,
+                title: "Mobile App Wireframe Feedback",
+                category: "Design",
+                company: "FinSmart App",
+                payout: "$60",
+                duration: "2 Days",
+                tags: ["UI/UX", "Feedback"],
+                icon: "fa-mobile-screen",
+                color: "text-amber-400",
+                bgColor: "bg-amber-500/10"
+            },
+            {
+                id: 6,
+                title: "Python Web Scraping Script",
+                category: "Web Dev",
+                company: "DataBot Analytics",
+                payout: "$110",
+                duration: "4 Days",
+                tags: ["Python", "Automation"],
+                icon: "fa-terminal",
+                color: "text-teal-400",
+                bgColor: "bg-teal-500/10"
+            }
+        ];
+
+        // Toggle Pages (Teen vs Company)
+        function switchPage(page) {
+            const teenPage = document.getElementById('page-teen');
+            const companyPage = document.getElementById('page-company');
+            const btnTeen = document.getElementById('nav-btn-teen');
+            const btnCompany = document.getElementById('nav-btn-company');
+            const mobBtnTeen = document.getElementById('mob-btn-teen');
+            const mobBtnCompany = document.getElementById('mob-btn-company');
+            const headerCta = document.getElementById('header-cta');
+
+            if (page === 'teen') {
+                teenPage.classList.remove('hidden');
+                companyPage.classList.add('hidden');
+                
+                // Button styling updates
+                btnTeen.className = 'px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md bg-brand-600 text-white';
+                btnCompany.className = 'px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-white';
+                
+                mobBtnTeen.className = 'flex-1 py-2 text-center text-xs font-bold rounded-md bg-brand-600 text-white';
+                mobBtnCompany.className = 'flex-1 py-2 text-center text-xs font-bold rounded-md text-slate-400';
+                
+                headerCta.textContent = 'Start Earning';
+                headerCta.href = '#projects-section';
+            } else {
+                companyPage.classList.remove('hidden');
+                teenPage.classList.add('hidden');
+                
+                // Button styling updates
+                btnCompany.className = 'px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 shadow-md bg-emerald-500 text-white';
+                btnTeen.className = 'px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-white';
+
+                mobBtnCompany.className = 'flex-1 py-2 text-center text-xs font-bold rounded-md bg-emerald-500 text-white';
+                mobBtnTeen.className = 'flex-1 py-2 text-center text-xs font-bold rounded-md text-slate-400';
+
+                headerCta.textContent = 'Post a Project';
+                headerCta.href = '#calculator-section';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Projects Grid
+        function renderProjects(items) {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+
+            items.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-800/80 border border-slate-700/80 rounded-2xl p-6 hover:border-brand-500/50 transition-all duration-300 flex flex-col justify-between group';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 rounded-xl ${project.bgColor} ${project.color} flex items-center justify-center text-lg">
+                                <i class="fa-solid ${project.icon}"></i>
+                            </div>
+                            <span class="text-lg font-bold text-emerald-400">${project.payout}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white group-hover:text-brand-400 transition-colors mb-1">${project.title}</h3>
+                        <p class="text-xs text-slate-400 mb-4"><i class="fa-regular fa-building mr-1"></i> ${project.company}</p>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            ${project.tags.map(tag => `<span class="px-2 py-0.5 bg-slate-900 text-slate-300 text-[10px] font-medium rounded-md border border-slate-700">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-slate-700/60 flex items-center justify-between">
+                        <span class="text-[11px] text-slate-400"><i class="fa-regular fa-clock mr-1"></i> ${project.duration}</span>
+                        <button onclick="triggerNotification('Applied for ${project.title}!')" class="px-3.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition">
+                            Apply Now
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Projects
+        function filterProjects(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.includes(category) || (category === 'all' && btn.textContent === 'All Projects')) {
+                    btn.className = 'filter-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-brand-600 text-white';
+                } else {
+                    btn.className = 'filter-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700';
+                }
+            });
+
+            if (category === 'all') {
+                renderProjects(projectsData);
+            } else {
+                const filtered = projectsData.filter(p => p.category === category);
+                renderProjects(filtered);
+            }
+        }
+
+        // Calculate Project Cost for Companies
+        function calculateCost() {
+            const baseline = parseInt(document.getElementById('calc-category').value);
+            const quantity = parseInt(document.getElementById('calc-quantity').value);
+            document.getElementById('quantity-label').textContent = `${quantity} ${quantity === 1 ? 'Unit' : 'Units'}`;
+            
+            const total = baseline * quantity;
+            document.getElementById('total-cost').textContent = `$${total}`;
+        }
+
+        // SEO Audit Modal Toggle
+        function toggleAuditModal() {
+            const modal = document.getElementById('seo-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Toast Notification Trigger
+        function triggerNotification(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Initialize on Window Load
+        window.onload = function() {
+            renderProjects(projectsData);
+            calculateCost();
+        };
+    </script>
+</body>
+</html>
+```
